@@ -13,6 +13,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.mltpoject.mine.mltpojectmonster.NBT工具;
 import net.mltpoject.mine.mltpojectmonster.能力基类;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE)
@@ -96,9 +97,7 @@ public class 飞雷神 extends 能力基类 {
             }
 
             if (僵尸.getTarget() instanceof Player) {
-                boolean 可用飞雷神 = nbtTag.contains("飞雷神") && nbtTag.getBoolean("飞雷神");
-
-                if (!可用飞雷神) {
+                if (!NBT工具.获取NBTBool("飞雷神", 僵尸)){
                     return;
                 }
 
@@ -137,14 +136,8 @@ public class 飞雷神 extends 能力基类 {
     @SubscribeEvent
     public static void onLivingSpawn(LivingSpawnEvent.SpecialSpawn event) {
         if (event.getEntity().getType() == EntityType.ZOMBIE) {
-            Zombie 僵尸 = (Zombie) event.getEntity();
-
-            // 随机决定是否添加 NBT 标签
             if (Math.random() < 飞雷神概率.get()) {
-                // 添加 NBT 标签
-                CompoundTag nbt = new CompoundTag();
-                nbt.putBoolean("飞雷神", true);
-                僵尸.getPersistentData().put("mltpojectmonster", nbt);
+                NBT工具.添加NBT("飞雷神", true, event.getEntity());
             }
         }
     }

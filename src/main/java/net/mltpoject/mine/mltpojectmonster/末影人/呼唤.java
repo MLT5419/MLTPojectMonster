@@ -14,6 +14,7 @@ import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.mltpoject.mine.mltpojectmonster.NBT工具;
 import net.mltpoject.mine.mltpojectmonster.能力基类;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE)
@@ -53,10 +54,7 @@ public class 呼唤 extends 能力基类 {
                 return;
             }
 
-            CompoundTag nbtTag = 攻击者.getPersistentData().getCompound("mltpojectmonster");
-            boolean 是呼唤者 = nbtTag.contains("呼唤者") && nbtTag.getBoolean("呼唤者");
-
-            if (!是呼唤者){
+            if (!NBT工具.获取NBTBool("呼唤者", 攻击者)){
                 return;
             }
 
@@ -92,14 +90,8 @@ public class 呼唤 extends 能力基类 {
     @SubscribeEvent
     public static void onLivingSpawn(LivingSpawnEvent.SpecialSpawn event) {
         if (event.getEntity().getType() == EntityType.ENDERMAN) {
-            EnderMan 末影人 = (EnderMan) event.getEntity();
-
-            // 随机决定是否添加 NBT 标签
             if (Math.random() < 呼唤概率.get()) {
-                // 添加 NBT 标签
-                CompoundTag nbt = new CompoundTag();
-                nbt.putBoolean("呼唤者", true);
-                末影人.getPersistentData().put("mltpojectmonster", nbt);
+                NBT工具.添加NBT("呼唤者", true, event.getEntity());
             }
         }
     }

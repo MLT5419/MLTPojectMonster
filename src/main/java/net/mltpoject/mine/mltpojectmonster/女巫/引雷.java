@@ -11,6 +11,7 @@ import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.mltpoject.mine.mltpojectmonster.NBT工具;
 import net.mltpoject.mine.mltpojectmonster.能力基类;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE)
@@ -43,10 +44,7 @@ public class 引雷 extends 能力基类 {
 
             Witch 女巫 = (Witch) event.getEntityLiving();
 
-            CompoundTag nbtTag = 女巫.getPersistentData().getCompound("mltpojectmonster");
-            boolean 是引雷 = nbtTag.contains("引雷") && nbtTag.getBoolean("引雷");
-
-            if (!是引雷){
+            if (!NBT工具.获取NBTBool("引雷", 女巫)){
                 return;
             }
 
@@ -73,14 +71,8 @@ public class 引雷 extends 能力基类 {
     @SubscribeEvent
     public static void onLivingSpawn(LivingSpawnEvent.SpecialSpawn event) {
         if (event.getEntity().getType() == EntityType.WITCH) {
-            Witch 女巫 = (Witch) event.getEntity();
-
-            // 随机决定是否添加 NBT 标签
             if (Math.random() < 引雷概率.get()) {
-                // 添加 NBT 标签
-                CompoundTag nbt = new CompoundTag();
-                nbt.putBoolean("引雷", true);
-                女巫.getPersistentData().put("mltpojectmonster", nbt);
+                NBT工具.添加NBT("引雷", true, event.getEntity());
             }
         }
     }

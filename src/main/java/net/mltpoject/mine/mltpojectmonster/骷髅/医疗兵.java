@@ -15,6 +15,7 @@ import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.mltpoject.mine.mltpojectmonster.NBT工具;
 import net.mltpoject.mine.mltpojectmonster.能力基类;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE)
@@ -86,10 +87,7 @@ public class 医疗兵 extends 能力基类 {
         if (living instanceof Skeleton) {
             Skeleton skeleton = (Skeleton) living;
 
-            CompoundTag nbtTag = skeleton.getPersistentData().getCompound("mltpojectmonster");
-            boolean 是医疗兵 = nbtTag.contains("医疗兵") && nbtTag.getBoolean("医疗兵");
-
-            if (!skeleton.getMainHandItem().getItem().equals(Items.BOW) || !是医疗兵){
+            if (!NBT工具.获取NBTBool("医疗兵", skeleton)){
                 return;
             }
 
@@ -135,14 +133,8 @@ public class 医疗兵 extends 能力基类 {
     @SubscribeEvent
     public static void onLivingSpawn(LivingSpawnEvent.SpecialSpawn event) {
         if (event.getEntity().getType() == EntityType.SKELETON) {
-            Skeleton skeleton = (Skeleton) event.getEntity();
-
-            // 随机决定是否添加 NBT 标签
             if (Math.random() < 骷髅医疗兵概率.get()) {
-                // 添加 NBT 标签
-                CompoundTag nbt = new CompoundTag();
-                nbt.putBoolean("医疗兵", true);
-                skeleton.getPersistentData().put("mltpojectmonster", nbt);
+                NBT工具.添加NBT("医疗兵", true, event.getEntity());
             }
         }
     }

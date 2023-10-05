@@ -15,6 +15,7 @@ import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.mltpoject.mine.mltpojectmonster.NBT工具;
 import net.mltpoject.mine.mltpojectmonster.能力基类;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE)
@@ -85,10 +86,7 @@ public class 虫群 extends 能力基类 {
                 return;
             }
 
-            CompoundTag nbtTag = 被攻击者.getPersistentData().getCompound("mltpojectmonster");
-            boolean 是虫群 = nbtTag.contains("虫群") && nbtTag.getBoolean("虫群");
-
-            if (!是虫群){
+            if (!NBT工具.获取NBTBool("虫群", 被攻击者)){
                 return;
             }
 
@@ -126,14 +124,8 @@ public class 虫群 extends 能力基类 {
     @SubscribeEvent
     public static void onLivingSpawn(LivingSpawnEvent.SpecialSpawn event) {
         if (event.getEntity().getType() == EntityType.SILVERFISH) {
-            Silverfish 蠹虫 = (Silverfish) event.getEntity();
-
-            // 随机决定是否添加 NBT 标签
             if (Math.random() < 虫群概率.get()) {
-                // 添加 NBT 标签
-                CompoundTag nbt = new CompoundTag();
-                nbt.putBoolean("虫群", true);
-                蠹虫.getPersistentData().put("mltpojectmonster", nbt);
+                NBT工具.添加NBT("虫群", true, event.getEntity());
             }
         }
     }

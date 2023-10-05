@@ -13,6 +13,7 @@ import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.mltpoject.mine.mltpojectmonster.NBT工具;
 import net.mltpoject.mine.mltpojectmonster.能力基类;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE)
@@ -52,10 +53,7 @@ public class 刺客 extends 能力基类 {
 
             Spider 蜘蛛 = (Spider) living;
 
-            CompoundTag nbtTag = 蜘蛛.getPersistentData().getCompound("mltpojectmonster");
-            boolean 是刺客 = nbtTag.contains("刺客") && nbtTag.getBoolean("刺客");
-
-            if (!是刺客){
+            if (!NBT工具.获取NBTBool("刺客", 蜘蛛)){
                 return;
             }
 
@@ -80,14 +78,8 @@ public class 刺客 extends 能力基类 {
     @SubscribeEvent
     public static void onLivingSpawn(LivingSpawnEvent.SpecialSpawn event) {
         if (event.getEntity().getType() == EntityType.SPIDER) {
-            Spider 蜘蛛 = (Spider) event.getEntity();
-
-            // 随机决定是否添加 NBT 标签
             if (Math.random() < 刺客概率.get()) {
-                // 添加 NBT 标签
-                CompoundTag nbt = new CompoundTag();
-                nbt.putBoolean("刺客", true);
-                蜘蛛.getPersistentData().put("mltpojectmonster", nbt);
+                NBT工具.添加NBT("刺客", true, event.getEntity());
             }
         }
     }
