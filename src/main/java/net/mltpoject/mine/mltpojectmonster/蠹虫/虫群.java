@@ -30,6 +30,8 @@ public class 虫群 extends 能力基类 {
 
     public static ForgeConfigSpec.DoubleValue 虫群必定召唤生命比例;
 
+    public static ForgeConfigSpec.DoubleValue 虫群攻击力增长率;
+
     public 虫群(){
         super("蠹虫", "虫群");
     }
@@ -55,6 +57,10 @@ public class 虫群 extends 能力基类 {
         虫群必定召唤生命比例 = 构建
                 .comment("蠹虫的生命值低于该比例后受到伤害必定会召唤新蠹虫")
                 .defineInRange("虫群必定召唤生命比例", 0.5, 0, 1);
+
+        虫群攻击力增长率 = 构建
+                .comment("蠹虫召唤的新蠹虫会增加的攻击力比例")
+                .defineInRange("虫群攻击力增长率", 0.25, 0, 1);
     }
 
     @SubscribeEvent
@@ -103,7 +109,7 @@ public class 虫群 extends 能力基类 {
             // 在攻击者位置生成新蠹虫
             Silverfish 新蠹虫 = new Silverfish(EntityType.SILVERFISH, 蠹虫.getCommandSenderWorld());
             新蠹虫.setPos(攻击者.position());
-            新蠹虫.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(蠹虫.getAttribute(Attributes.ATTACK_DAMAGE).getValue() * 1.25);
+            新蠹虫.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(蠹虫.getAttribute(Attributes.ATTACK_DAMAGE).getValue() * (1 + 虫群攻击力增长率.get()));
 
             // 添加新蠹虫到世界
             蠹虫.getCommandSenderWorld().addFreshEntity(新蠹虫);
