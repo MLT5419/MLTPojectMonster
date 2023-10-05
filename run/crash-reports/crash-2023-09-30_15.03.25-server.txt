@@ -1,0 +1,160 @@
+---- Minecraft Crash Report ----
+// Shall we play a game?
+
+Time: 2023/9/30 下午3:03
+Description: Ticking entity
+
+java.lang.NullPointerException: Cannot invoke "net.minecraft.world.entity.LivingEntity.getHealth()" because the return value of "net.minecraft.world.entity.monster.Skeleton.getTarget()" is null
+	at net.mltpoject.mine.mltpojectmonster.骷髅.医疗兵.onLivingUpdate(骷髅机制.java:29) ~[%2385!/:?] {re:classloading}
+	at net.minecraftforge.eventbus.ASMEventHandler_1_骷髅机制_onLivingUpdate_LivingUpdateEvent.invoke(.dynamic) ~[?:?] {}
+	at net.minecraftforge.eventbus.ASMEventHandler.invoke(ASMEventHandler.java:85) ~[eventbus-5.0.7.jar%2311!/:?] {}
+	at net.minecraftforge.eventbus.EventBus.post(EventBus.java:302) ~[eventbus-5.0.7.jar%2311!/:?] {}
+	at net.minecraftforge.eventbus.EventBus.post(EventBus.java:283) ~[eventbus-5.0.7.jar%2311!/:?] {}
+	at net.minecraftforge.common.ForgeHooks.onLivingUpdate(ForgeHooks.java:324) ~[forge-1.18.2-40.2.10_mapped_official_1.18.2-recomp.jar%2379%2386!/:?] {re:classloading}
+	at net.minecraft.world.entity.LivingEntity.tick(LivingEntity.java:2214) ~[forge-1.18.2-40.2.10_mapped_official_1.18.2-recomp.jar%2380!/:?] {re:classloading}
+	at net.minecraft.world.entity.Mob.tick(Mob.java:310) ~[forge-1.18.2-40.2.10_mapped_official_1.18.2-recomp.jar%2380!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.world.entity.monster.Skeleton.tick(Skeleton.java:60) ~[forge-1.18.2-40.2.10_mapped_official_1.18.2-recomp.jar%2380!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.server.level.ServerLevel.tickNonPassenger(ServerLevel.java:652) ~[forge-1.18.2-40.2.10_mapped_official_1.18.2-recomp.jar%2380!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.world.level.Level.guardEntityTick(Level.java:487) ~[forge-1.18.2-40.2.10_mapped_official_1.18.2-recomp.jar%2380!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.server.level.ServerLevel.lambda$tick$3(ServerLevel.java:319) ~[forge-1.18.2-40.2.10_mapped_official_1.18.2-recomp.jar%2380!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.world.level.entity.EntityTickList.forEach(EntityTickList.java:54) ~[forge-1.18.2-40.2.10_mapped_official_1.18.2-recomp.jar%2380!/:?] {re:classloading}
+	at net.minecraft.server.level.ServerLevel.tick(ServerLevel.java:299) ~[forge-1.18.2-40.2.10_mapped_official_1.18.2-recomp.jar%2380!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.server.MinecraftServer.tickChildren(MinecraftServer.java:902) ~[forge-1.18.2-40.2.10_mapped_official_1.18.2-recomp.jar%2380!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.server.MinecraftServer.tickServer(MinecraftServer.java:842) ~[forge-1.18.2-40.2.10_mapped_official_1.18.2-recomp.jar%2380!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.client.server.IntegratedServer.tickServer(IntegratedServer.java:84) ~[forge-1.18.2-40.2.10_mapped_official_1.18.2-recomp.jar%2380!/:?] {re:classloading,pl:runtimedistcleaner:A}
+	at net.minecraft.server.MinecraftServer.runServer(MinecraftServer.java:685) ~[forge-1.18.2-40.2.10_mapped_official_1.18.2-recomp.jar%2380!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.server.MinecraftServer.lambda$spin$2(MinecraftServer.java:261) ~[forge-1.18.2-40.2.10_mapped_official_1.18.2-recomp.jar%2380!/:?] {re:classloading,pl:accesstransformer:B}
+	at java.lang.Thread.run(Thread.java:833) [?:?] {}
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Thread: Server thread
+Stacktrace:
+	at net.mltpoject.mine.mltpojectmonster.骷髅.医疗兵.onLivingUpdate(骷髅机制.java:29) ~[%2385!/:?] {re:classloading}
+	at net.minecraftforge.eventbus.ASMEventHandler_1_骷髅机制_onLivingUpdate_LivingUpdateEvent.invoke(.dynamic) ~[?:?] {}
+	at net.minecraftforge.eventbus.ASMEventHandler.invoke(ASMEventHandler.java:85) ~[eventbus-5.0.7.jar%2311!/:?] {}
+	at net.minecraftforge.eventbus.EventBus.post(EventBus.java:302) ~[eventbus-5.0.7.jar%2311!/:?] {}
+	at net.minecraftforge.eventbus.EventBus.post(EventBus.java:283) ~[eventbus-5.0.7.jar%2311!/:?] {}
+	at net.minecraftforge.common.ForgeHooks.onLivingUpdate(ForgeHooks.java:324) ~[forge-1.18.2-40.2.10_mapped_official_1.18.2-recomp.jar%2379%2386!/:?] {re:classloading}
+	at net.minecraft.world.entity.LivingEntity.tick(LivingEntity.java:2214) ~[forge-1.18.2-40.2.10_mapped_official_1.18.2-recomp.jar%2380!/:?] {re:classloading}
+	at net.minecraft.world.entity.Mob.tick(Mob.java:310) ~[forge-1.18.2-40.2.10_mapped_official_1.18.2-recomp.jar%2380!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.world.entity.monster.Skeleton.tick(Skeleton.java:60) ~[forge-1.18.2-40.2.10_mapped_official_1.18.2-recomp.jar%2380!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.server.level.ServerLevel.tickNonPassenger(ServerLevel.java:652) ~[forge-1.18.2-40.2.10_mapped_official_1.18.2-recomp.jar%2380!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.world.level.Level.guardEntityTick(Level.java:487) ~[forge-1.18.2-40.2.10_mapped_official_1.18.2-recomp.jar%2380!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.server.level.ServerLevel.lambda$tick$3(ServerLevel.java:319) ~[forge-1.18.2-40.2.10_mapped_official_1.18.2-recomp.jar%2380!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.world.level.entity.EntityTickList.forEach(EntityTickList.java:54) ~[forge-1.18.2-40.2.10_mapped_official_1.18.2-recomp.jar%2380!/:?] {re:classloading}
+	at net.minecraft.server.level.ServerLevel.tick(ServerLevel.java:299) ~[forge-1.18.2-40.2.10_mapped_official_1.18.2-recomp.jar%2380!/:?] {re:classloading,pl:accesstransformer:B}
+-- Entity being ticked --
+Details:
+	Entity Type: minecraft:skeleton (net.minecraft.world.entity.monster.Skeleton)
+	Entity ID: 160
+	Entity Name: 骷髅
+	Entity's Exact location: 15.50, -59.00, -1.50
+	Entity's Block location: World: (15,-59,-2), Section: (at 15,5,14 in 0,-4,-1; chunk contains blocks 0,-64,-16 to 15,319,-1), Region: (0,-1; contains chunks 0,-32 to 31,-1, blocks 0,-64,-512 to 511,319,-1)
+	Entity's Momentum: 0.00, 0.00, 0.00
+	Entity's Passengers: []
+	Entity's Vehicle: null
+Stacktrace:
+	at net.minecraft.world.level.Level.guardEntityTick(Level.java:487) ~[forge-1.18.2-40.2.10_mapped_official_1.18.2-recomp.jar%2380!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.server.level.ServerLevel.lambda$tick$3(ServerLevel.java:319) ~[forge-1.18.2-40.2.10_mapped_official_1.18.2-recomp.jar%2380!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.world.level.entity.EntityTickList.forEach(EntityTickList.java:54) ~[forge-1.18.2-40.2.10_mapped_official_1.18.2-recomp.jar%2380!/:?] {re:classloading}
+	at net.minecraft.server.level.ServerLevel.tick(ServerLevel.java:299) ~[forge-1.18.2-40.2.10_mapped_official_1.18.2-recomp.jar%2380!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.server.MinecraftServer.tickChildren(MinecraftServer.java:902) ~[forge-1.18.2-40.2.10_mapped_official_1.18.2-recomp.jar%2380!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.server.MinecraftServer.tickServer(MinecraftServer.java:842) ~[forge-1.18.2-40.2.10_mapped_official_1.18.2-recomp.jar%2380!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.client.server.IntegratedServer.tickServer(IntegratedServer.java:84) ~[forge-1.18.2-40.2.10_mapped_official_1.18.2-recomp.jar%2380!/:?] {re:classloading,pl:runtimedistcleaner:A}
+	at net.minecraft.server.MinecraftServer.runServer(MinecraftServer.java:685) ~[forge-1.18.2-40.2.10_mapped_official_1.18.2-recomp.jar%2380!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.server.MinecraftServer.lambda$spin$2(MinecraftServer.java:261) ~[forge-1.18.2-40.2.10_mapped_official_1.18.2-recomp.jar%2380!/:?] {re:classloading,pl:accesstransformer:B}
+	at java.lang.Thread.run(Thread.java:833) [?:?] {}
+
+
+-- Affected level --
+Details:
+	All players: 1 total; [ServerPlayer['Dev'/105, l='ServerLevel[新的世界]', x=17.93, y=-58.81, z=-1.30]]
+	Chunk stats: 2209
+	Level dimension: minecraft:overworld
+	Level spawn location: World: (0,-60,0), Section: (at 0,4,0 in 0,-4,0; chunk contains blocks 0,-64,0 to 15,319,15), Region: (0,0; contains chunks 0,0 to 31,31, blocks 0,-64,0 to 511,319,511)
+	Level time: 9892 game time, 0 day time
+	Level name: 新的世界
+	Level game mode: Game mode: creative (ID 1). Hardcore: false. Cheats: true
+	Level weather: Rain time: 0 (now: false), thunder time: 0 (now: false)
+	Known server brands: forge
+	Level was modded: true
+	Level storage version: 0x04ABD - Anvil
+Stacktrace:
+	at net.minecraft.server.MinecraftServer.tickChildren(MinecraftServer.java:902) ~[forge-1.18.2-40.2.10_mapped_official_1.18.2-recomp.jar%2380!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.server.MinecraftServer.tickServer(MinecraftServer.java:842) ~[forge-1.18.2-40.2.10_mapped_official_1.18.2-recomp.jar%2380!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.client.server.IntegratedServer.tickServer(IntegratedServer.java:84) ~[forge-1.18.2-40.2.10_mapped_official_1.18.2-recomp.jar%2380!/:?] {re:classloading,pl:runtimedistcleaner:A}
+	at net.minecraft.server.MinecraftServer.runServer(MinecraftServer.java:685) ~[forge-1.18.2-40.2.10_mapped_official_1.18.2-recomp.jar%2380!/:?] {re:classloading,pl:accesstransformer:B}
+	at net.minecraft.server.MinecraftServer.lambda$spin$2(MinecraftServer.java:261) ~[forge-1.18.2-40.2.10_mapped_official_1.18.2-recomp.jar%2380!/:?] {re:classloading,pl:accesstransformer:B}
+	at java.lang.Thread.run(Thread.java:833) [?:?] {}
+
+
+-- System Details --
+Details:
+	Minecraft Version: 1.18.2
+	Minecraft Version ID: 1.18.2
+	Operating System: Windows 10 (amd64) version 10.0
+	Java Version: 17.0.5, Amazon.com Inc.
+	Java VM Version: OpenJDK 64-Bit Server VM (mixed mode, sharing), Amazon.com Inc.
+	Memory: 424994744 bytes (405 MiB) / 1860173824 bytes (1774 MiB) up to 1860173824 bytes (1774 MiB)
+	CPUs: 4
+	Processor Vendor: AuthenticAMD
+	Processor Name: AMD A10-9600P RADEON R5, 10 COMPUTE CORES 4C+6G
+	Identifier: AuthenticAMD Family 21 Model 101 Stepping 1
+	Microarchitecture: unknown
+	Frequency (GHz): 2.40
+	Number of physical packages: 1
+	Number of physical CPUs: 4
+	Number of logical CPUs: 4
+	Graphics card #0 name: AMD Radeon (TM) R5 M330
+	Graphics card #0 vendor: Advanced Micro Devices, Inc. (0x1002)
+	Graphics card #0 VRAM (MB): 2048.00
+	Graphics card #0 deviceId: 0x6660
+	Graphics card #0 versionInfo: DriverVersion=27.20.1034.6
+	Graphics card #1 name: AMD Radeon R5 Graphics
+	Graphics card #1 vendor: Advanced Micro Devices, Inc. (0x1002)
+	Graphics card #1 VRAM (MB): 1024.00
+	Graphics card #1 deviceId: 0x9874
+	Graphics card #1 versionInfo: DriverVersion=27.20.1034.6
+	Memory slot #0 capacity (MB): 8192.00
+	Memory slot #0 clockSpeed (GHz): 1.20
+	Memory slot #0 type: DDR4
+	Virtual memory max (MB): 16084.36
+	Virtual memory used (MB): 11766.00
+	Swap memory total (MB): 8994.05
+	Swap memory used (MB): 1513.66
+	JVM Flags: 1 total; -XX:HeapDumpPath=MojangTricksIntelDriversForPerformance_javaw.exe_minecraft.exe.heapdump
+	Server Running: true
+	Player Count: 1 / 8; [ServerPlayer['Dev'/105, l='ServerLevel[新的世界]', x=17.93, y=-58.81, z=-1.30]]
+	Data Packs: vanilla, mod:forge, mod:mltpojectmonster
+	World Generation: Stable
+	Type: Integrated Server (map_client.txt)
+	Is Modded: Definitely; Client brand changed to 'forge'; Server brand changed to 'forge'
+	ModLauncher: 9.1.3+9.1.3+main.9b69c82a
+	ModLauncher launch target: forgeclientuserdev
+	ModLauncher naming: mcp
+	ModLauncher services: 
+		 mixin PLUGINSERVICE 
+		 eventbus PLUGINSERVICE 
+		 slf4jfixer PLUGINSERVICE 
+		 object_holder_definalize PLUGINSERVICE 
+		 runtime_enum_extender PLUGINSERVICE 
+		 capability_token_subclass PLUGINSERVICE 
+		 accesstransformer PLUGINSERVICE 
+		 runtimedistcleaner PLUGINSERVICE 
+		 mixin TRANSFORMATIONSERVICE 
+		 fml TRANSFORMATIONSERVICE 
+	FML Language Providers: 
+		minecraft@1.0
+		lowcodefml@null
+		javafml@null
+	Mod List: 
+		forge-1.18.2-40.2.10_mapped_official_1.18.2-recomp|Minecraft                     |minecraft                     |1.18.2              |DONE      |Manifest: a1:d4:5e:04:4f:d3:d6:e0:7b:37:97:cf:77:b0:de:ad:4a:47:ce:8c:96:49:5f:0a:cf:8c:ae:b2:6d:4b:8a:3f
+		                                                  |Forge                         |forge                         |40.2.10             |DONE      |Manifest: NOSIGNATURE
+		main                                              |MLTPojectMonster              |mltpojectmonster              |1.0-SNAPSHOT        |DONE      |Manifest: NOSIGNATURE
+	Crash Report UUID: f4f42cd5-dbea-41b2-9ceb-91d44650ae72
+	FML: 40.2
+	Forge: net.minecraftforge:40.2.10
