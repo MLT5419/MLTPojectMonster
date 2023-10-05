@@ -7,19 +7,19 @@ import net.minecraftforge.fml.common.Mod;
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class NBT工具 {
     public static void 添加NBT(String ID, boolean 值, Entity 实体){
-        CompoundTag nbt = new CompoundTag();
+        CompoundTag nbt = 实体.getPersistentData().getCompound("mltpojectmonster");
         nbt.putBoolean(ID, 值);
         实体.getPersistentData().put("mltpojectmonster", nbt);
     }
 
     public static void 添加NBT(String ID, int 值, Entity 实体){
-        CompoundTag nbt = new CompoundTag();
+        CompoundTag nbt = 实体.getPersistentData().getCompound("mltpojectmonster");
         nbt.putInt(ID, 值);
         实体.getPersistentData().put("mltpojectmonster", nbt);
     }
 
     public static void 添加NBT(String ID, double 值, Entity 实体){
-        CompoundTag nbt = new CompoundTag();
+        CompoundTag nbt = 实体.getPersistentData().getCompound("mltpojectmonster");
         nbt.putDouble(ID, 值);
         实体.getPersistentData().put("mltpojectmonster", nbt);
     }

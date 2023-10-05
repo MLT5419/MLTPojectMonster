@@ -4,6 +4,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.ForgeConfigSpec;
@@ -52,7 +53,15 @@ public class 转移 extends 能力基类 {
             Entity 击杀者 = event.getSource().getEntity();
 
             if (击杀者 == null){
-                return;
+                for (Entity entity : 末影人.level.getEntities(末影人, 末影人.getBoundingBox().inflate(8))) {
+                    if (entity instanceof LivingEntity) {
+                        LivingEntity 单位 = (LivingEntity) entity;
+                        if (单位 instanceof Player) {
+                            击杀者 = 单位;
+                            break;
+                        }
+                    }
+                }
             }
 
             if (击杀者 instanceof Player) {

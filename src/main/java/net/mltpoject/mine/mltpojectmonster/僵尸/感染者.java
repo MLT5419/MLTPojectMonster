@@ -14,6 +14,4 @@ public class 感染者 extends 能力基类 {
     protected void 当获取配置(ForgeConfigSpec.Builder 构建) {
         super.当获取配置(构建);
     }
-
-
 }
