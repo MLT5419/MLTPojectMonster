@@ -2,6 +2,7 @@ package net.mltpoject.mine.mltpojectmonster;
 
 import net.mltpoject.mine.mltpojectmonster.僵尸.飞雷神;
 import net.mltpoject.mine.mltpojectmonster.女巫.引雷;
+import net.mltpoject.mine.mltpojectmonster.掠夺者.等级掠夺;
 import net.mltpoject.mine.mltpojectmonster.末影人.呼唤;
 import net.mltpoject.mine.mltpojectmonster.末影人.转移;
 import net.mltpoject.mine.mltpojectmonster.玩家.防守尸;
@@ -25,5 +26,6 @@ public class 能力列表 {
         列表.add(new 刺客());
         列表.add(new 转移());
         列表.add(new 寄生());
+        列表.add(new 等级掠夺());
     }
 }

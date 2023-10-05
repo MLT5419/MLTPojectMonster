@@ -39,7 +39,7 @@ public class 刺客 extends 能力基类 {
                 .defineInRange("刺客概率", 0.3, 0, 1);
 
         刺客范围 = 构建
-                .comment("刺客距离玩家多远才会触发隐身与恢复")
+                .comment("刺客距离玩家多远才会触发隐身")
                 .defineInRange("刺客范围", 8, 0, Integer.MAX_VALUE);
     }
 
@@ -67,10 +67,8 @@ public class 刺客 extends 能力基类 {
             }
 
             MobEffectInstance invisibility = new MobEffectInstance(MobEffects.INVISIBILITY, 10, 1, false, false);
-            MobEffectInstance regeneration = new MobEffectInstance(MobEffects.REGENERATION, 10, 1, false, false);
 
             蜘蛛.addEffect(invisibility);
-            蜘蛛.addEffect(regeneration);
         }
     }
 

@@ -37,12 +37,12 @@ public class 转移 extends 能力基类 {
 
     @SubscribeEvent
     public void onEntityDeath(LivingDeathEvent event) {
-        if (event.getEntityLiving() instanceof EnderMan) {
+        if (event.getEntity() instanceof EnderMan) {
             if (!转移启用.get()){
                 return;
             }
 
-            EnderMan 末影人 = (EnderMan) event.getEntityLiving();
+            EnderMan 末影人 = (EnderMan) event.getEntity();
 
             if (!NBT工具.获取NBTBool("转移", 末影人)){
                 return;
