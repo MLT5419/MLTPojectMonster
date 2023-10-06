@@ -85,6 +85,10 @@ public class 医疗兵 extends 能力基类 {
     public void onLivingUpdate(LivingEvent.LivingUpdateEvent event) {
         LivingEntity living = event.getEntityLiving();
         if (living instanceof Skeleton) {
+            if (!骷髅医疗兵启用.get()){
+                return;
+            }
+
             Skeleton skeleton = (Skeleton) living;
 
             if (!NBT工具.获取NBTBool("医疗兵", skeleton)){

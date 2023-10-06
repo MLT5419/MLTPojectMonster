@@ -8,7 +8,6 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Silverfish;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
@@ -126,6 +125,7 @@ public class 寄生 extends 能力基类 {
                         玩家.getCommandSenderWorld().addFreshEntity(新蠹虫);
 
                         新蠹虫.getAttribute(Attributes.MAX_HEALTH).setBaseValue(新蠹虫.getAttribute(Attributes.MAX_HEALTH).getValue() * 寄生结束生命值倍率.get());
+                        新蠹虫.heal(新蠹虫.getMaxHealth());
 
                         新蠹虫.getCommandSenderWorld().playSound(
                                 null,

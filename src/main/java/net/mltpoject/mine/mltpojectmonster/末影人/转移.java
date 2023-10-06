@@ -9,7 +9,6 @@ import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
-import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -50,7 +49,9 @@ public class 转移 extends 能力基类 {
                 return;
             }
 
-            if (!(末影人.getHealth() <= 0 || (末影人.getHealth() - event.getAmount()) <= 0)){
+            // 计算末影人受到伤害后的生命值
+            float healthAfterDamage = 末影人.getHealth() - event.getAmount();
+            if (healthAfterDamage > 0){
                 return;
             }
 
@@ -83,7 +84,6 @@ public class 转移 extends 能力基类 {
             }
         }
     }
-
 
     // 在生成生物的事件中订阅
     @SubscribeEvent
