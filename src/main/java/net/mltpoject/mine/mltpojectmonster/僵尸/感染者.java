@@ -69,7 +69,7 @@ public class 感染者 extends 能力基类 {
                 新蠹虫.setPos(僵尸.position());
 
                 // 添加新蠹虫到世界
-                僵尸.getCommandSenderWorld().addFreshEntity(新蠹虫);
+                主动生成生物(新蠹虫, 僵尸);
 
                 新蠹虫.getCommandSenderWorld().playSound(
                         null,

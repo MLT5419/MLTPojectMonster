@@ -122,7 +122,7 @@ public class 寄生 extends 能力基类 {
                         新蠹虫.setPos(玩家.position());
 
                         // 添加新蠹虫到世界
-                        玩家.getCommandSenderWorld().addFreshEntity(新蠹虫);
+                        主动生成生物(新蠹虫, 玩家);
 
                         新蠹虫.getAttribute(Attributes.MAX_HEALTH).setBaseValue(新蠹虫.getAttribute(Attributes.MAX_HEALTH).getValue() * 寄生结束生命值倍率.get());
                         新蠹虫.heal(新蠹虫.getMaxHealth());
@@ -150,6 +150,15 @@ public class 寄生 extends 能力基类 {
         if (event.getEntity().getType() == EntityType.SILVERFISH) {
             if (Math.random() < 寄生概率.get()) {
                 NBT工具.添加NBT("寄生", true, event.getEntity());
+            }
+        }
+    }
+
+    @Override
+    protected void 当主动生成生物(LivingEntity 生物, LivingEntity 生成源) {
+        if (生物.getType() == EntityType.SILVERFISH) {
+            if (Math.random() < 寄生概率.get()) {
+                NBT工具.添加NBT("寄生", true, 生物);
             }
         }
     }

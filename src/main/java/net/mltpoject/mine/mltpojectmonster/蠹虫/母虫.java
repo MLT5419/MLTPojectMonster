@@ -68,7 +68,7 @@ public class 母虫 extends 能力基类 {
                         新蠹虫.setPos(living.position());
 
                         // 添加新蠹虫到世界
-                        living.getCommandSenderWorld().addFreshEntity(新蠹虫);
+                        主动生成生物(新蠹虫, living);
 
                         新蠹虫.getCommandSenderWorld().playSound(
                                 null,
@@ -144,6 +144,15 @@ public class 母虫 extends 能力基类 {
         if (event.getEntity().getType() == EntityType.SILVERFISH) {
             if (Math.random() < 母虫概率.get()) {
                 NBT工具.添加NBT("母虫", true, event.getEntity());
+            }
+        }
+    }
+
+    @Override
+    protected void 当主动生成生物(LivingEntity 生物, LivingEntity 生成源) {
+        if (生物.getType() == EntityType.SILVERFISH) {
+            if (Math.random() < 母虫概率.get()) {
+                NBT工具.添加NBT("母虫", true, 生物);
             }
         }
     }
