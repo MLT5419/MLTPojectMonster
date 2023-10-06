@@ -9,6 +9,7 @@ import net.mltpoject.mine.mltpojectmonster.末影人.转移;
 import net.mltpoject.mine.mltpojectmonster.玩家.防守尸;
 import net.mltpoject.mine.mltpojectmonster.蜘蛛.刺客;
 import net.mltpoject.mine.mltpojectmonster.蠹虫.寄生;
+import net.mltpoject.mine.mltpojectmonster.蠹虫.母虫;
 import net.mltpoject.mine.mltpojectmonster.蠹虫.虫群;
 import net.mltpoject.mine.mltpojectmonster.骷髅.医疗兵;
 
@@ -29,5 +30,6 @@ public class 能力列表 {
         列表.add(new 寄生());
         列表.add(new 等级掠夺());
         列表.add(new 感染者());
+        列表.add(new 母虫());
     }
 }
