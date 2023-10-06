@@ -31,7 +31,7 @@ public class 刺客 extends 能力基类 {
     @Override
     protected void 当获取配置(ForgeConfigSpec.Builder 构建) {
         刺客启用 = 构建
-                .comment("如果启用，蜘蛛有一定概率会在远离玩家时隐身并恢复生命值")
+                .comment("如果启用，蜘蛛有一定概率会在远离玩家时隐身")
                 .define("刺客启用", true);
 
         刺客概率 = 构建

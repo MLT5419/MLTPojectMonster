@@ -1,5 +1,6 @@
 package net.mltpoject.mine.mltpojectmonster;
 
+import net.mltpoject.mine.mltpojectmonster.僵尸.感染者;
 import net.mltpoject.mine.mltpojectmonster.僵尸.飞雷神;
 import net.mltpoject.mine.mltpojectmonster.女巫.引雷;
 import net.mltpoject.mine.mltpojectmonster.掠夺者.等级掠夺;
@@ -27,5 +28,6 @@ public class 能力列表 {
         列表.add(new 转移());
         列表.add(new 寄生());
         列表.add(new 等级掠夺());
+        列表.add(new 感染者());
     }
 }

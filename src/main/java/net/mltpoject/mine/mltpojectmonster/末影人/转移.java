@@ -8,6 +8,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.ForgeConfigSpec;
+import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -37,7 +38,7 @@ public class 转移 extends 能力基类 {
     }
 
     @SubscribeEvent
-    public void onEntityDeath(LivingDeathEvent event) {
+    public void onEntityAttacked(LivingAttackEvent event) {
         if (event.getEntity() instanceof EnderMan) {
             if (!转移启用.get()){
                 return;
@@ -46,6 +47,10 @@ public class 转移 extends 能力基类 {
             EnderMan 末影人 = (EnderMan) event.getEntity();
 
             if (!NBT工具.获取NBTBool("转移", 末影人)){
+                return;
+            }
+
+            if (!(末影人.getHealth() <= 0 || (末影人.getHealth() - event.getAmount()) <= 0)){
                 return;
             }
 
