@@ -25,6 +25,10 @@ public class 母虫 extends 能力基类 {
 
     public static ForgeConfigSpec.DoubleValue 母虫概率;
 
+    public static ForgeConfigSpec.BooleanValue 母虫饥不择食;
+
+    public static ForgeConfigSpec.IntValue 母虫寄生选择范围;
+
     public static ForgeConfigSpec.IntValue 母虫寄生效果间隔;
 
     public static ForgeConfigSpec.DoubleValue 母虫寄生伤害比例;
@@ -42,6 +46,14 @@ public class 母虫 extends 能力基类 {
         母虫概率 = 构建
                 .comment("母虫能力出现的概率")
                 .defineInRange("母虫概率", 0.25, 0, 1);
+
+        母虫饥不择食 = 构建
+                .comment("如果启用，母虫可以寄生除了玩家外的任何生物")
+                .define("母虫饥不择食", false);
+
+        母虫寄生选择范围 = 构建
+                .comment("母虫选择寄生目标的最大范围")
+                .defineInRange("母虫寄生效果间隔", 8, 0, Integer.MAX_VALUE);
 
         母虫寄生效果间隔 = 构建
                 .comment("被寄生的生物间隔多久触发一次寄生效果")
@@ -99,42 +111,29 @@ public class 母虫 extends 能力基类 {
                 return;
             }
 
-            if (蠹虫.getTarget() instanceof Monster){
-                return;
-            }
-
-            for (Entity entity : 蠹虫.level.getEntities(蠹虫, 蠹虫.getBoundingBox().inflate(32))) {
+            for (Entity entity : 蠹虫.level.getEntities(蠹虫, 蠹虫.getBoundingBox().inflate(母虫寄生选择范围.get()))) {
                 if (entity instanceof LivingEntity) {
                     LivingEntity 新目标 = (LivingEntity) entity;
-                    if (新目标 instanceof Monster) {
-                        蠹虫.setTarget(新目标);
+                    if (新目标 instanceof Monster || (母虫饥不择食.get() && !(新目标 instanceof Player))) {
+                        var 寄生数量 = NBT工具.获取NBTInt("被母虫寄生", 新目标);
+                        NBT工具.添加NBT("被母虫寄生", 寄生数量 + 1, 新目标);
+                        NBT工具.添加NBT("被母虫寄生效果计时", 母虫寄生效果间隔.get(), 新目标);
+
+                        新目标.getCommandSenderWorld().playSound(
+                                null,
+                                新目标.position().x,
+                                新目标.position().y,
+                                新目标.position().z,
+                                SoundEvents.SLIME_JUMP,
+                                SoundSource.NEUTRAL,
+                                1.0F,
+                                1.0F);
+
+                        蠹虫.remove(Entity.RemovalReason.KILLED);
                         return;
                     }
                 }
             }
-        }
-    }
-
-    @SubscribeEvent
-    public void onEntityAttacked(LivingAttackEvent event) {
-        Entity 攻击者 = event.getSource().getEntity();
-        LivingEntity 被攻击者 = event.getEntityLiving();
-
-        if (被攻击者 instanceof Monster && 攻击者 instanceof Silverfish) {
-            Silverfish 蠹虫 = (Silverfish) 攻击者;
-
-            if (!母虫启用.get()){
-                return;
-            }
-
-            if (!NBT工具.获取NBTBool("母虫", 蠹虫)){
-                return;
-            }
-
-            var 寄生数量 = NBT工具.获取NBTInt("被母虫寄生", 被攻击者);
-            NBT工具.添加NBT("被母虫寄生", 寄生数量 + 1, 被攻击者);
-            NBT工具.添加NBT("被母虫寄生效果计时", 母虫寄生效果间隔.get(), 被攻击者);
-            蠹虫.remove(Entity.RemovalReason.KILLED);
         }
     }
 
