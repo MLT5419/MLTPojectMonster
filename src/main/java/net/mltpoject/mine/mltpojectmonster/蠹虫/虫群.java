@@ -32,6 +32,8 @@ public class 虫群 extends 能力基类 {
 
     public static ForgeConfigSpec.DoubleValue 虫群攻击力增长率;
 
+    public static ForgeConfigSpec.IntValue 虫群套娃最大数量;
+
     public 虫群(){
         super("蠹虫", "虫群");
     }
@@ -61,6 +63,10 @@ public class 虫群 extends 能力基类 {
         虫群攻击力增长率 = 构建
                 .comment("蠹虫召唤的新蠹虫会增加的攻击力比例")
                 .defineInRange("虫群攻击力增长率", 0.25, 0, 1);
+
+        虫群套娃最大数量 = 构建
+                .comment("虫群最多可以套娃(新生成的蠹虫又生成了蠹虫)多少层")
+                .defineInRange("虫群套娃最大数量", 3, 0, Integer.MAX_VALUE);
     }
 
     @SubscribeEvent
@@ -98,6 +104,12 @@ public class 虫群 extends 能力基类 {
 
             Silverfish 蠹虫 = (Silverfish) event.getEntityLiving();
 
+            var 套娃次数 = NBT工具.获取NBTInt("虫群套娃", 蠹虫);
+
+            if (套娃次数 > 虫群套娃最大数量.get()){
+                return;
+            }
+
             // 如果蠹虫的生命值低于最大生命值的一定比例则必定生成新蠹虫
             if (!(蠹虫.getHealth() < 蠹虫.getMaxHealth() * 虫群必定召唤生命比例.get())){
                 // 否则随机生成新蠹虫
@@ -112,7 +124,9 @@ public class 虫群 extends 能力基类 {
             新蠹虫.getAttribute(Attributes.ATTACK_DAMAGE).setBaseValue(蠹虫.getAttribute(Attributes.ATTACK_DAMAGE).getValue() * (1 + 虫群攻击力增长率.get()));
 
             // 添加新蠹虫到世界
-            蠹虫.getCommandSenderWorld().addFreshEntity(新蠹虫);
+            主动生成生物(新蠹虫, 蠹虫);
+
+            NBT工具.添加NBT("虫群套娃", 套娃次数 + 1, 新蠹虫);
 
             新蠹虫.getCommandSenderWorld().playSound(
                     null,

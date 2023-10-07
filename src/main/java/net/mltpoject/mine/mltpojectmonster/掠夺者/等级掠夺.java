@@ -1,5 +1,6 @@
 package net.mltpoject.mine.mltpojectmonster.掠夺者;
 
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -56,6 +57,9 @@ public class 等级掠夺 extends 能力基类 {
             }
 
             ((Player) 被攻击者).giveExperienceLevels(-1);
+
+            TextComponent message = new TextComponent("掠夺者夺取了你的等级");
+            发送能力提示(message, (Player) 被攻击者);
         }
     }
 

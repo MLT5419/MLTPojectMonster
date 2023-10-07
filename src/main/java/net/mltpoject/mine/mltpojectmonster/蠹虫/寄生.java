@@ -1,5 +1,8 @@
 package net.mltpoject.mine.mltpojectmonster.蠹虫;
 
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Style;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
@@ -88,6 +91,13 @@ public class 寄生 extends 能力基类 {
                 var 寄生数量 = NBT工具.获取NBTInt("被寄生", 被攻击者);
                 NBT工具.添加NBT("被寄生", 寄生数量 + 1, 被攻击者);
                 NBT工具.添加NBT("被寄生计时", 寄生时间.get(), 被攻击者);
+
+                TextComponent message = new TextComponent("你被");
+                message.append(new TextComponent(Integer.toString(寄生数量 + 1)).setStyle(Style.EMPTY.withColor(ChatFormatting.RED)));
+                message.append("个蠹虫寄生了！");
+
+                发送能力提示(message, (Player) 被攻击者);
+
                 蠹虫.remove(Entity.RemovalReason.KILLED);
             }
         }
@@ -137,6 +147,10 @@ public class 寄生 extends 能力基类 {
                                 1.0F,
                                 1.0F);
                     }
+
+                    TextComponent message = new TextComponent(寄生数量 + "个蠹虫结束了寄生，出现了。");
+                    发送能力提示(message, 玩家);
+
                     NBT工具.添加NBT("被寄生", 0, 玩家);
                 }
                 NBT工具.添加NBT("被寄生计时", 寄生时间, 玩家);

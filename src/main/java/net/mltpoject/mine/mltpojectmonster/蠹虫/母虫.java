@@ -93,6 +93,9 @@ public class 母虫 extends 能力基类 {
                                 1.0F);
                     }
                     var 伤害量 = 寄生数量 * (living.getMaxHealth() * (float) 母虫寄生伤害比例.get().doubleValue());
+                    if (伤害量 < 1){
+                        伤害量 = 1;
+                    }
                     living.hurt(DamageSource.GENERIC, 伤害量);
                     计时 = 母虫寄生效果间隔.get();
                 }
@@ -114,7 +117,9 @@ public class 母虫 extends 能力基类 {
             for (Entity entity : 蠹虫.level.getEntities(蠹虫, 蠹虫.getBoundingBox().inflate(母虫寄生选择范围.get()))) {
                 if (entity instanceof LivingEntity) {
                     LivingEntity 新目标 = (LivingEntity) entity;
-                    if (新目标 instanceof Monster || (母虫饥不择食.get() && !(新目标 instanceof Player))) {
+                    if ((新目标 instanceof Monster && !(新目标 instanceof Silverfish)) ||
+                            (母虫饥不择食.get() && !(新目标 instanceof Player))) {
+
                         var 寄生数量 = NBT工具.获取NBTInt("被母虫寄生", 新目标);
                         NBT工具.添加NBT("被母虫寄生", 寄生数量 + 1, 新目标);
                         NBT工具.添加NBT("被母虫寄生效果计时", 母虫寄生效果间隔.get(), 新目标);

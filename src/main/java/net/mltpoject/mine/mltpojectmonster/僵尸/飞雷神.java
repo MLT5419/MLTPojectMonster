@@ -1,6 +1,7 @@
 package net.mltpoject.mine.mltpojectmonster.僵尸;
 
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -121,6 +122,9 @@ public class 飞雷神 extends 能力基类 {
                     nbtTag.putDouble("飞雷神返回位置Z", 僵尸.position().z);
 
                     僵尸.setPos(目标玩家.position());
+
+                    TextComponent message = new TextComponent("一个僵尸对你使用了飞雷神");
+                    发送能力提示(message, 目标玩家);
 
                     nbtTag.putBoolean("飞雷神", false);
                     nbtTag.putBoolean("飞雷神返回", true);
