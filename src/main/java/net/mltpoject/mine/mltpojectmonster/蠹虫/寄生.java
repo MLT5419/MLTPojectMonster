@@ -24,6 +24,8 @@ import net.mltpoject.mine.mltpojectmonster.能力基类;
 public class 寄生 extends 能力基类 {
     public static ForgeConfigSpec.BooleanValue 寄生启用;
 
+    public static ForgeConfigSpec.BooleanValue 寄生套娃启用;
+
     public static ForgeConfigSpec.DoubleValue 寄生概率;
 
     public static ForgeConfigSpec.DoubleValue 寄生发生概率;
@@ -36,6 +38,9 @@ public class 寄生 extends 能力基类 {
 
     public static ForgeConfigSpec.DoubleValue 寄生结束生命值倍率;
 
+
+    public static ForgeConfigSpec.IntValue 寄生套娃攻击恢复;
+
     public 寄生(){
         super("蠹虫", "寄生");
     }
@@ -45,6 +50,10 @@ public class 寄生 extends 能力基类 {
         寄生启用 = 构建
                 .comment("如果启用，蠹虫有一定概率会在击中玩家后寄生在玩家体内")
                 .define("寄生启用", true);
+
+        寄生套娃启用 = 构建
+                .comment("如果启用，蠹虫在寄生出现后依然有可能成为寄生蠹虫")
+                .define("寄生套娃启用", false);
 
         寄生概率 = 构建
                 .comment("寄生能力出现的概率")
@@ -64,11 +73,15 @@ public class 寄生 extends 能力基类 {
 
         寄生时间 = 构建
                 .comment("寄生后重新生成一个蠹虫并结束寄生的时间")
-                .defineInRange("寄生时间", 100, 0, Integer.MAX_VALUE);
+                .defineInRange("寄生时间", 1200, 0, Integer.MAX_VALUE);
 
         寄生结束生命值倍率 = 构建
                 .comment("寄生结束后生成的蠹虫的生命倍率")
                 .defineInRange("寄生结束生命值倍率", 2.0, 0, 10);
+
+        寄生套娃攻击恢复 = 构建
+                .comment("在禁止套娃的情况下寄生蠹虫的攻击恢复量")
+                .defineInRange("寄生套娃攻击恢复", 1, 0, Integer.MAX_VALUE);
     }
 
     @SubscribeEvent
@@ -85,6 +98,13 @@ public class 寄生 extends 能力基类 {
 
             if (!NBT工具.获取NBTBool("寄生", 蠹虫)){
                 return;
+            }
+
+            if (!寄生套娃启用.get()){
+                if (NBT工具.获取NBTBool("寄生套娃", 蠹虫)){
+                    蠹虫.heal(寄生套娃攻击恢复.get());
+                    return;
+                }
             }
 
             if (Math.random() < 寄生发生概率.get()) {
@@ -136,6 +156,8 @@ public class 寄生 extends 能力基类 {
 
                         新蠹虫.getAttribute(Attributes.MAX_HEALTH).setBaseValue(新蠹虫.getAttribute(Attributes.MAX_HEALTH).getValue() * 寄生结束生命值倍率.get());
                         新蠹虫.heal(新蠹虫.getMaxHealth());
+
+                        NBT工具.添加NBT("寄生套娃", true, 新蠹虫);
 
                         新蠹虫.getCommandSenderWorld().playSound(
                                 null,
