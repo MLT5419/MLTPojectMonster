@@ -2,6 +2,7 @@ package net.mltpoject.mine.mltpojectmonster;
 
 import net.mltpoject.mine.mltpojectmonster.僵尸.感染者;
 import net.mltpoject.mine.mltpojectmonster.僵尸.飞雷神;
+import net.mltpoject.mine.mltpojectmonster.卫道士.午夜凶铃;
 import net.mltpoject.mine.mltpojectmonster.女巫.引雷;
 import net.mltpoject.mine.mltpojectmonster.掠夺者.等级掠夺;
 import net.mltpoject.mine.mltpojectmonster.末影人.呼唤;
@@ -31,5 +32,6 @@ public class 能力列表 {
         列表.add(new 等级掠夺());
         列表.add(new 感染者());
         列表.add(new 母虫());
+        列表.add(new 午夜凶铃());
     }
 }

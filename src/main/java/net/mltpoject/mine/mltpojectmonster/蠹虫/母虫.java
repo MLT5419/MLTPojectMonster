@@ -96,7 +96,7 @@ public class 母虫 extends 能力基类 {
                     if (伤害量 < 1){
                         伤害量 = 1;
                     }
-                    living.hurt(DamageSource.GENERIC, 伤害量);
+                    living.hurt(DamageSource.MAGIC, 伤害量);
                     计时 = 母虫寄生效果间隔.get();
                 }
                 NBT工具.添加NBT("被母虫寄生效果计时", 计时, living);
