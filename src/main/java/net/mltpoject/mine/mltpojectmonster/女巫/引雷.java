@@ -4,6 +4,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LightningBolt;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.monster.Witch;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.ForgeConfigSpec;
@@ -66,13 +67,11 @@ public class 引雷 extends 能力基类 {
         }
     }
 
-
-    // 在生成生物的事件中订阅
-    @SubscribeEvent
-    public static void onLivingSpawn(LivingSpawnEvent.SpecialSpawn event) {
-        if (event.getEntity().getType() == EntityType.WITCH) {
+    @Override
+    protected void 当生成生物(LivingEntity 生物) {
+        if (生物.getType() == EntityType.WITCH) {
             if (Math.random() < 引雷概率.get()) {
-                NBT工具.添加NBT("引雷", true, event.getEntity());
+                NBT工具.添加NBT("引雷", true, 生物);
             }
         }
     }

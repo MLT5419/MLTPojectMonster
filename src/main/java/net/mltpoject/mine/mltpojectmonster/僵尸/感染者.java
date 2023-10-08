@@ -3,6 +3,7 @@ package net.mltpoject.mine.mltpojectmonster.僵尸;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Silverfish;
 import net.minecraft.world.entity.monster.Zombie;
@@ -84,12 +85,11 @@ public class 感染者 extends 能力基类 {
         }
     }
 
-    // 在生成生物的事件中订阅
-    @SubscribeEvent
-    public static void onLivingSpawn(LivingSpawnEvent.SpecialSpawn event) {
-        if (event.getEntity().getType() == EntityType.ZOMBIE) {
+    @Override
+    protected void 当生成生物(LivingEntity 生物) {
+        if (生物.getType() == EntityType.ZOMBIE) {
             if (Math.random() < 感染者概率.get()) {
-                NBT工具.添加NBT("感染者", true, event.getEntity());
+                NBT工具.添加NBT("感染者", true, 生物);
             }
         }
     }

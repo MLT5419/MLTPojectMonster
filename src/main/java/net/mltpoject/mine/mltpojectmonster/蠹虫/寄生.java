@@ -180,18 +180,8 @@ public class 寄生 extends 能力基类 {
         }
     }
 
-    // 在生成生物的事件中订阅
-    @SubscribeEvent
-    public static void onLivingSpawn(LivingSpawnEvent.SpecialSpawn event) {
-        if (event.getEntity().getType() == EntityType.SILVERFISH) {
-            if (Math.random() < 寄生概率.get()) {
-                NBT工具.添加NBT("寄生", true, event.getEntity());
-            }
-        }
-    }
-
     @Override
-    protected void 当主动生成生物(LivingEntity 生物, LivingEntity 生成源) {
+    protected void 当生成生物(LivingEntity 生物) {
         if (生物.getType() == EntityType.SILVERFISH) {
             if (Math.random() < 寄生概率.get()) {
                 NBT工具.添加NBT("寄生", true, 生物);

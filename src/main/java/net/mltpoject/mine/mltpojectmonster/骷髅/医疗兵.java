@@ -133,16 +133,6 @@ public class 医疗兵 extends 能力基类 {
         }
     }
 
-    // 在生成生物的事件中订阅
-    @SubscribeEvent
-    public static void onLivingSpawn(LivingSpawnEvent.SpecialSpawn event) {
-        if (event.getEntity().getType() == EntityType.SKELETON) {
-            if (Math.random() < 骷髅医疗兵概率.get()) {
-                NBT工具.添加NBT("医疗兵", true, event.getEntity());
-            }
-        }
-    }
-
     private void 目标检查(Skeleton skeleton){
         for (Entity entity : skeleton.level.getEntities(skeleton, skeleton.getBoundingBox().inflate(骷髅医疗兵范围.get()))) {
             if (entity instanceof LivingEntity) {
@@ -163,6 +153,15 @@ public class 医疗兵 extends 能力基类 {
         if (skeleton.getTarget().getHealth() >= skeleton.getTarget().getMaxHealth() * 骷髅医疗兵停止比例.get() ||
                 skeleton.getTarget().isDeadOrDying()){
             skeleton.setTarget(null);
+        }
+    }
+
+    @Override
+    protected void 当生成生物(LivingEntity 生物) {
+        if (生物.getType() == EntityType.SKELETON) {
+            if (Math.random() < 骷髅医疗兵概率.get()) {
+                NBT工具.添加NBT("医疗兵", true, 生物);
+            }
         }
     }
 }

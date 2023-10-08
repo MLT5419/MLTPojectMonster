@@ -72,12 +72,11 @@ public class 刺客 extends 能力基类 {
         }
     }
 
-    // 在生成生物的事件中订阅
-    @SubscribeEvent
-    public static void onLivingSpawn(LivingSpawnEvent.SpecialSpawn event) {
-        if (event.getEntity().getType() == EntityType.SPIDER) {
+    @Override
+    protected void 当生成生物(LivingEntity 生物) {
+        if (生物.getType() == EntityType.SPIDER) {
             if (Math.random() < 刺客概率.get()) {
-                NBT工具.添加NBT("刺客", true, event.getEntity());
+                NBT工具.添加NBT("刺客", true, 生物);
             }
         }
     }
