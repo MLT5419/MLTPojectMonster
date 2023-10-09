@@ -17,6 +17,8 @@ public class 没有逝 extends 能力基类 {
 
     public static ForgeConfigSpec.BooleanValue 没有逝玩家生效;
 
+    public static ForgeConfigSpec.BooleanValue 没有逝恢复效果;
+
     public static ForgeConfigSpec.DoubleValue 没有逝直接恢复比例;
 
     public static ForgeConfigSpec.IntValue 没有逝起始恢复等级;
@@ -40,6 +42,10 @@ public class 没有逝 extends 能力基类 {
         没有逝玩家生效 = 构建
                 .comment("如果启用，玩家击杀玩家也会获得恢复效果")
                 .define("没有逝玩家生效", true);
+
+        没有逝恢复效果 = 构建
+                .comment("如果启用，在基础的恢复效果之上还会提供递增的生命恢复效果")
+                .define("没有逝恢复效果", true);
 
         没有逝直接恢复比例 = 构建
                 .comment("击杀玩家后直接恢复给予血量上限的生命值")
@@ -74,6 +80,12 @@ public class 没有逝 extends 能力基类 {
             if ((!(凶手 instanceof Player) || 没有逝玩家生效.get()) && 凶手 instanceof LivingEntity){
                 var 活着的凶手 = (LivingEntity) 凶手;
 
+                活着的凶手.heal(活着的凶手.getMaxHealth() * (float) 没有逝直接恢复比例.get().doubleValue());
+
+                if (!没有逝恢复效果.get()){
+                    return;
+                }
+
                 MobEffectInstance 当前效果 = 活着的凶手.getEffect(MobEffects.REGENERATION);
 
                 if (当前效果 != null) {
@@ -107,8 +119,6 @@ public class 没有逝 extends 能力基类 {
                     MobEffectInstance newEffect = new MobEffectInstance(MobEffects.REGENERATION, 没有逝恢复持续时间.get(), 没有逝起始恢复等级.get(), false, false);
                     活着的凶手.addEffect(newEffect);
                 }
-
-                活着的凶手.heal(活着的凶手.getMaxHealth() * (float) 没有逝直接恢复比例.get().doubleValue());
             }
         }
     }
