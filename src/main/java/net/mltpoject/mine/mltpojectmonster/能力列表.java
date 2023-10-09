@@ -12,6 +12,7 @@ import net.mltpoject.mine.mltpojectmonster.蜘蛛.刺客;
 import net.mltpoject.mine.mltpojectmonster.蠹虫.寄生;
 import net.mltpoject.mine.mltpojectmonster.蠹虫.母虫;
 import net.mltpoject.mine.mltpojectmonster.蠹虫.虫群;
+import net.mltpoject.mine.mltpojectmonster.通用.没有逝;
 import net.mltpoject.mine.mltpojectmonster.骷髅.医疗兵;
 
 import java.util.ArrayList;
@@ -33,5 +34,6 @@ public class 能力列表 {
         列表.add(new 感染者());
         列表.add(new 母虫());
         列表.add(new 午夜凶铃());
+        列表.add(new 没有逝());
     }
 }
