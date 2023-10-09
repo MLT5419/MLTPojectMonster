@@ -47,7 +47,7 @@ public class 没有逝 extends 能力基类 {
 
         没有逝起始恢复等级 = 构建
                 .comment("第一次击杀玩家后获得的生命恢复效果等级")
-                .defineInRange("没有逝起始恢复等级", 1, 0, Integer.MAX_VALUE);
+                .defineInRange("没有逝起始恢复等级", 0, 0, Integer.MAX_VALUE);
 
         没有逝等级递增 = 构建
                 .comment("已经持有恢复效果的生物再次击杀玩家会增加的等级")
@@ -55,7 +55,7 @@ public class 没有逝 extends 能力基类 {
 
         没有逝最大恢复等级 = 构建
                 .comment("通过此能力最高叠加的恢复等级，如果超出等级继续触发则只会刷新持续时间(在持续时间低于设定值的情况)")
-                .defineInRange("没有逝最大恢复等级", 1, 0, Integer.MAX_VALUE);
+                .defineInRange("没有逝最大恢复等级", 9, 0, Integer.MAX_VALUE);
 
         没有逝恢复持续时间 = 构建
                 .comment("通过此能力施加的生命恢复效果的持续时间")
